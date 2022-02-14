@@ -93,13 +93,13 @@
 	<center>
   <a href="#two"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 5th, 1976</a> 
          	<a href="#two"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 19th, 2056</a>
-           	<a href="#two"  onclick="loevAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 18th, 2021</a>
+           	<a href="#two"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 18th, 2021</a>
           </center>
 	    
 	    <p>
 		   
-	   	 <img src="ps://lh3.googleusercontent.com/2zbschyi48vxpUN4T0SU2rxYlmaWaNlvFc4M1Gw83s9sqKjhJiGTPccD94_eKJWCtbDdTV9ZCs2C8l6dLpayu5pn0mNnnOydI45aTGu9XYpoeloUswbYrbgw8Y-18WCHG0HICyl-c-AIEAQ98yuyhijE9aE0i2yvttdUKxuqVw3TsP3acgna7ZU2U6WRhdC5J3XtgUCw0mYkpo2hz7Pd657f0-NSgMdSCzJpPSkTPPn17OtBrIApkvwXqpSNrV5Nj8uH_KCYXoJcIeVxaF8U23K0wEbFD0HeO3ZjwXcXVGMNh8z7BWo0tPUaGgYYXlM5B6uTSkky9OMvTdB8GG1Rv2gXBaXcUXG-zk5eMG_m1JlSEv8eroYVxLexASaTKVpvbKfmeD7QoHF7K1kfvJN2zxKywDXpcVAc0z17o1MdF5Ge3TYmwJXDbmdJx7DHB4ULKL2uvx9B4sWkPawTAqfTzBJs8soeelBE5nVwrlG-01IBgT83R7pZiDZVm0PrHmmUXv-qpYf7srAsFjLUQ_o2KdqURUdKusWAnlaV-uq7NGS5QDdr7X1E06jae9kVR5u3fcUWinbfRxllc5GVOEOZV6_oqQ7BoK6lSRLgfELoCXHimmOWF985yvhCMmliVh7s5x44VmPTqMdQgGyB-UcPfMaYb-GuMiDWYRA_xFC1bf83J1XPDDVCF0G_lgkMl_HxQO24fINzgyrhvBym=w278-h181-no?authuser=0" alt="asymmetrical v symmetrical image" width="300" height="196">
-	    </p>
+	   	<center> <img src="https://lh3.googleusercontent.com/aZt-uinoNnJ8LRtlyNAs0wm3WI_2ia9Cao97mdeNp6oYQ9IxxFcLQEGbnFzlnWQlb5OCrLreho5j3RjcGUkEDymBcVIAJdE6Us-oCW4IOEddth1cXI46R9wcPZR9oZWGpAm_jxNSU9IwCOAQV6Wtujgm92iSWDunNoqgAWACWzaDnw0hztoT-F4shkmcRKwnUXIy1Sl2BsVjmqQK1kpZI-7rnIf-hNpNlxyQ8Mnvwu_4VimG80NK3A-ccNI0QBLe5k7lFBY6fwpQr2BGoktRgq1caFIUWALnQbrGshgyyuePLlbSWYY3IiOvGIWP68dcsYDPyZQyx6Tu-BZRv7U0fJ5YgOjyCYWbU7KtDtQIwPKTk0mdusxZnLY-jHqcQcBLucQTENxGXKWgOgyV09phX02BUNA8CId65vi64Tk3dttkIBmligiNINSwdnkiQr57QiVnG-WvJ-P1EDVfU9bH9Mvlc9igaAOj_tjPtVEf5bTBNYMQE9sH__5DDpAx9ytisSY5OlAJ2RztsmIxedLaeOxCNlVcoYVy0iFvEQilYbKawxylUjrAXZqpuZJpb09hGmOzqAShgenYZu0nItYHj8SU3EPnDbYEGfXlYUzq6ekdpDcBKXI7SzG00CNlxglj8WhypzrwxyJgoL5sYGj5DwK2OPf30-O9bdGNLnWIRPHoSh31WZLHdfOWDbYwteLYxwVSWIEN9xB_2N4S_i6ER5pu=w531-h986-no?authuser=0" alt="you and me and sparkles" width="531" height="986">
+	   </center> </p> 
  </div><!-- benignAdd and malignantAdd place values in each category for final calculations -->
 	
 <!--href=#two means that once the button is clicked, page two shows up-->
@@ -117,9 +117,10 @@ I also changed the color of the header for each page
 	</div>
 	
 	<div id="content" class="w3-container">
-		<p>Is your mole multicolored?</p>    
-		<a href="#three"  onclick="malignantAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Yes</a>
-         	<a href="#three"  onclick="benignAdd();" class="w3-btn w3-khaki w3-round-xxlarge">No</a> 
+		<p>What flavor chapstick did Charli put on before her first kiss with Jalena?</p>    
+		<a href="#three"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Cappuccino</a>
+         	<a href="#three"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Strawberry</a>
+		<a href="#three"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Medicated Menthol</a>
 		
 		<p>
 		<img src="https://lh3.googleusercontent.com/t_kpL6dQd3L23WiEcf4HC3qDgNunPWUcpEAAXoKj0KDa7ZZ9Zm5aBBTte_qdrfnLGHyi4EncSVFjO5xC5x_bomIpw6cRmBNt873NGDd7HygO1X1oGzjNSUSrNYMqEnyaYpRWwbUtJrmUqObEYLgGzfrjhfZqU1Os4IH_TPiRfgQ422sB4pbohnkDuwENnIciTzpzBVIEFj1F-ROoBso8YZG-C_l494Mrkq7iQkWtS5CSpZIid43bl1kyPOK9ug8RjGkv-6lcyA2CEDkxkEn3zqbUBtLfLIlirdUDOJuowKVpl7asDgzS7K5dR2-CAE4jau6AOShZYLJulouaSnvvv0-nwOTzykO9kn8s8O8yXlviaoU_2BMZusuhARPfk66hsCjVyNk1YHLnqag92LlYxEP-GYQBgxGq1O9palM3CKolodJStyG-3bvE-0M57_a_SuInMdl3KbKJ_fnKatNMxvpSTTZG0xXsZIBtQBCqZhwhN5WAckKQZN2dT8V9Ec91U8uychYb1rodFMrVA4H0EfrY5QpMTJDiPHpMGxq7PIiZJST8ScZEVCuCxP6MvqE8IqS2IabkZr9vIgny2K8zqJJWQ_oqlmIYZsHOs8o1h_SynUIVm_JbHe8p1TrSmD8C5eyP7BkHxl1DM5FCvVjZEN6RRsKmR5jLCqkipmc-0HgjGVdTatvA6elYixIjblAdk_5ajj0iVJHi9Aru=w224-h110-no?authuser=0" alt="single color v multi colored mole" width="300" height="196">
