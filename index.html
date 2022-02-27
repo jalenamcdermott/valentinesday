@@ -1,0 +1,671 @@
+<!DOCTYPE html> 
+<html> 
+
+   <head> 
+      
+	<!DOCTYPE html> 
+<html> 
+	
+   <head> 
+      <title>Hello World</title>  
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <link rel="stylesheet" href="w3.css">
+      <link rel="stylesheet" href="w3-colors-flat.css">
+   </head> 
+
+	
+<script> 
+        var love_count = 0;
+        var nolove_count = 0;
+<!--adds one when corresponding button is pressed.-->
+	
+        function loveAdd(){
+            love_count = love_count + 1;
+		
+        }
+
+        function noloveAdd(){
+            nolove_count = nolove_count + 1;
+        }
+	
+	function results(){
+		var lovePercent = (love_count/20.0) * 100;
+		var nolovePercent = (nolove_count/20.0) * 100;
+		var resultText = document.getElementById("results"); //captures the results and when 'results' button is pressed
+		resultText.innerHTML = "Let's see how I did... " + lovePercent + "%" ;
+	}
+	
+  </script>
+	
+<script>
+	
+	window.addEventListener("resize", resizeCanvas, false);
+        window.addEventListener("DOMContentLoaded", onLoad, false);
+        
+        window.requestAnimationFrame = 
+            window.requestAnimationFrame       || 
+            window.webkitRequestAnimationFrame || 
+            window.mozRequestAnimationFrame    || 
+            window.oRequestAnimationFrame      || 
+            window.msRequestAnimationFrame     || 
+            function (callback) {
+                window.setTimeout(callback, 1000/60);
+            };
+        
+        var canvas, ctx, w, h, particles = [], probability = 0.04,
+            xPoint, yPoint;
+        
+        
+        
+        
+        
+        function onLoad() {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            resizeCanvas();
+            
+            window.requestAnimationFrame(updateWorld);
+        } 
+        
+        function resizeCanvas() {
+            if (!!canvas) {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+        } 
+        
+        function updateWorld() {
+            update();
+            paint();
+            window.requestAnimationFrame(updateWorld);
+        } 
+        
+        function update() {
+            if (particles.length < 500 && Math.random() < probability) {
+                createFirework();
+            }
+            var alive = [];
+            for (var i=0; i<particles.length; i++) {
+                if (particles[i].move()) {
+                    alive.push(particles[i]);
+                }
+            }
+            particles = alive;
+        } 
+        
+        function paint() {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = "rgba(0,0,0,0.2)";
+            ctx.fillRect(0, 0, w, h);
+            ctx.globalCompositeOperation = 'lighter';
+            for (var i=0; i<particles.length; i++) {
+                particles[i].draw(ctx);
+            }
+        } 
+        
+        function createFirework() {
+            xPoint = Math.random()*(w-200)+100;
+            yPoint = Math.random()*(h-200)+100;
+            var nFire = Math.random()*50+100;
+            var c = "rgb("+(~~(Math.random()*200+55))+","
+                 +(~~(Math.random()*200+55))+","+(~~(Math.random()*200+55))+")";
+            for (var i=0; i<nFire; i++) {
+                var particle = new Particle();
+                particle.color = c;
+                var vy = Math.sqrt(25-particle.vx*particle.vx);
+                if (Math.abs(particle.vy) > vy) {
+                    particle.vy = particle.vy>0 ? vy: -vy;
+                }
+                particles.push(particle);
+            }
+        } 
+        
+        function Particle() {
+            this.w = this.h = Math.random()*4+1;
+            
+            this.x = xPoint-this.w/2;
+            this.y = yPoint-this.h/2;
+            
+            this.vx = (Math.random()-0.5)*10;
+            this.vy = (Math.random()-0.5)*10;
+            
+            this.alpha = Math.random()*.5+.5;
+            
+            this.color;
+        } 
+        
+        Particle.prototype = {
+            gravity: 0.05,
+            move: function () {
+                this.x += this.vx;
+                this.vy += this.gravity;
+                this.y += this.vy;
+                this.alpha -= 0.01;
+                if (this.x <= -this.w || this.x >= screen.width ||
+                    this.y >= screen.height ||
+                    this.alpha <= 0) {
+                        return false;
+                }
+                return true;
+            },
+            draw: function (c) {
+                c.save();
+                c.beginPath();
+                
+                c.translate(this.x+this.w/2, this.y+this.h/2);
+                c.arc(0, 0, this.w, 0, Math.PI*2);
+                c.fillStyle = this.color;
+                c.globalAlpha = this.alpha;
+                
+                c.closePath();
+                c.fill();
+                c.restore();
+            }
+        } 
+	
+	</script>
+
+<style>	
+	<!--makes the image shift and fit the size of the screen it's being viewed on-->
+	
+       img, object{
+            	max-height:90%;
+        	max-width:90%;
+        	}
+
+.body {
+     margin: 0em;
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    overflow-y: auto;
+    z-index: 0;
+    background-color: hsl(0,100%,86%);
+}
+
+  .page:target {
+    left: 0vw;
+    z-index: 1;
+}
+</style>
+
+<body>
+<div id="header" class="w3-container w3-flat-amethyst"> <!--codes for header design-->
+	<h1>How much do you know about Jalena and Charli's relationship?</h1> <!-- page title-->
+</div>
+	
+<div id="content" class="w3-container">
+	<p style="font-family: Times New Roman"> <center> Think you know everything there is to know about Jalena and Charli's wild ride? Well take this quiz to see just how much you remember about the dynamic duo! </center> </p>
+	
+	<a href="#one" class="w3-btn w3-grey w3-round"> Get Started </a>
+	
+ 	
+	<p>THIS IS A VERY SERIOUS QUIZ AND SHOULD BE TAKEN VERY SERIOUSLY.</p>
+	
+<!--next page begins and first question is asked-->
+<div class="page" id="one"> 
+	<!--id identifies what the page is called and how to reference it from there on-->
+	<div id="header" class="w3-container w3-flat-amethyst"> <!-- shape and color of the header-->
+		<h1>Question 1</h1>
+	</div>
+	
+    <div id="content" class="w3-container">
+	<p style="font-size:2vw;"> <center> When did Charli and Jalena get together? </center></p>   <!-- displays question-->
+	<center>
+ 		<a href="#two"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 5th, 1976</a> 
+         	<a href="#two"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 19th, 2056</a>
+           	<a href="#two"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">January 18th, 2021</a>
+          </center>
+	    
+	    <p>
+		   
+	   	<center> <img src="https://lh3.googleusercontent.com/aZt-uinoNnJ8LRtlyNAs0wm3WI_2ia9Cao97mdeNp6oYQ9IxxFcLQEGbnFzlnWQlb5OCrLreho5j3RjcGUkEDymBcVIAJdE6Us-oCW4IOEddth1cXI46R9wcPZR9oZWGpAm_jxNSU9IwCOAQV6Wtujgm92iSWDunNoqgAWACWzaDnw0hztoT-F4shkmcRKwnUXIy1Sl2BsVjmqQK1kpZI-7rnIf-hNpNlxyQ8Mnvwu_4VimG80NK3A-ccNI0QBLe5k7lFBY6fwpQr2BGoktRgq1caFIUWALnQbrGshgyyuePLlbSWYY3IiOvGIWP68dcsYDPyZQyx6Tu-BZRv7U0fJ5YgOjyCYWbU7KtDtQIwPKTk0mdusxZnLY-jHqcQcBLucQTENxGXKWgOgyV09phX02BUNA8CId65vi64Tk3dttkIBmligiNINSwdnkiQr57QiVnG-WvJ-P1EDVfU9bH9Mvlc9igaAOj_tjPtVEf5bTBNYMQE9sH__5DDpAx9ytisSY5OlAJ2RztsmIxedLaeOxCNlVcoYVy0iFvEQilYbKawxylUjrAXZqpuZJpb09hGmOzqAShgenYZu0nItYHj8SU3EPnDbYEGfXlYUzq6ekdpDcBKXI7SzG00CNlxglj8WhypzrwxyJgoL5sYGj5DwK2OPf30-O9bdGNLnWIRPHoSh31WZLHdfOWDbYwteLYxwVSWIEN9xB_2N4S_i6ER5pu=w531-h986-no?authuser=0" alt="you and me and sparkles" width="266" height="493">
+	   </center> </p> 
+ </div>
+	
+<!--href=#two means that once the button is clicked, page two shows up-->
+	
+</div>
+	
+<!-- 
+repeat same code for following 3 pages
+change page id and questions
+I also changed the color of the header for each page
+-->
+	<div class="page" id="two">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 2</h1>
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"><center>What flavor chapstick did Charli put on before her first kiss with Jalena?</center></p>    
+		<center>
+		<a href="#three"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Cappuccino</a>
+         	<a href="#three"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Strawberry</a>
+		<a href="#three"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Medicated Menthol</a>
+		</center>
+		
+		<p> 
+			<center>
+		<img src="https://lh3.googleusercontent.com/Ha3wa9iH51xZSsVhBBvMJ1ak4WBDWZRvDdxhCpSZkHiRP-lmSAC4WyvdkG49H1nwWAzRJSugLLf0mOrd55QAPSgQb2yvtbAyFmrqNTU9F8s4M5y0s2fhnkFptVXJfvYivROr74FtYUh1BM9HFUpxt4HB6-y0HbdTVgy2fDriOQyKmVEKJvntNy1dVOfsFVC8AdnCF5T3Q-ZIp-IZP4SLYtfXN8HHg6ySIPQCTE-IM6Qe3yEqh0BTcbeomjRDtnlFLMflibfyUDYCNvM3QrleghVfEZvqt3iKwLOyKRP9NGT-uix65rx-LQkYKF4DVXjU3G-SvOE8xR9zw7goHUvy4OmiraHZu-3rWmTXfAxr0jQ0g6T51rFkJRnBuAxx09s6pumMOa_j5Sf7kOswcXQ5tBtf77iavyx66eTzyUnP4PhwkISUtU0V3pBlzAtYl-oJb48WgDlvRkHNi9qW73VIL4VEWvCN__cWV-R0m6xg_XQ3n5n_R7IAhvuPzQn0iHU5bTQzwfjBwlCqGHhm4mjkSowz63eOgtE8QCj_8ta5WQSPve1kBYJxsfd3Q2krdPSrVOuP2NE-QHVfj_gTSewuA7jMgP3qMnX_tHrFpKhyXSIouSirNiuS6rinIlsaYO_7iXZF3ZFXVFCK0J9If3HggdVDOawm97EG4qTxrUJpxCy6b9uIjoErGRSR3t5b9TkGSWwiFUAhLpvItFtcDvRomDw=w1010-h986-no?authuser=0" alt="single color v multi colored mole" width="505" height="493">
+			</center> 
+		</p>
+		
+ </div>
+	
+<!--moving on to page 3	-->
+	</div>
+<div class="page" id="three">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 3</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"><center>What game did Jalena and Charli play during the dreaded 2021 winter storm?</center></p>    
+		<center>
+		<a href="#four"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Pokeman Go</a>
+         	<a href="#four"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Sky</a>
+		<a href="#four"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Rider's republic</a>
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/pyjNrMbWnXSHq9s35kkAizL_8hg-_TWxcJ-nIv7ybYDGBMFvNqPu5hdXpNLSv-fL0eIZP7tXhioQyJKXuRvHTGjYZYuIMBsjxnHeibExyBGJYI9H1HGjXNUg76FNfVbD0XMj3k8dZbzS2vc9LQZyBHMq4nM0KerUmEDPzpNp2BNtBEgBa0CulszD2nIbTyemnCn_IefBUkNjLBjPVs3vfPOlGbcyRM3vL_imPgbeYni7Bkshkfgdt25C-ZNNyxPfEdQsqPg5ZUJRj6HpDZukFu-0ap0zJH0fchXiO9MhAD2JUMohy6tob27waOPwe5quxZcG435JzlurKJg31zpDfa6wsOANAOzabSvEkcIuxHZrrsphHlgJ11-QoxI1dl_3a4D3EvypzgrreJUF8bfKFiT_Aftu8V2oZLRV19caxfAo_pKdeH-W4_7_3tnbmMm9wT7VtydRBmCqy-0FPaNBPWJem-MUxpjbhzpCldnTrAkTgJZVksd1QaBXViGTJzQIkF8oQVF2LPZ9VAT6XV37tHO5B4e7WfDIDVY1fW4y-pXEgJ7Rp_IZxOL-xh1i-7IuOog3x_H1bOOwzQfp2HMoAKqIZZfPg_8HkHrFDlwtvF-yvORRPKZn_3ODz31yPcoyBHSbbP-LDYlBvf-qsJ6yZNMhZAD9k8wMXZdUtRtjMcX4QWoGXNVd9elhJ52JEEz1wnF7t0J_cw40pwuIhtclG_Q=w1920-h888-no?authuser=0" alt="distinct boarders v faded boarders" width="960" height="444">
+			</center> </p>
+<!--last question-->
+	</div>
+<div class="page" id="four">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 4</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> Why did Jalena call Charli at 12:36am on April 2nd, 2021?</center> </p>
+		<center>
+		<a href="#five"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">She got into UT</a>
+		<a href="#five"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Spider in her room!</a>
+		<a href="#five"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Just to hear her beautiful voice</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/bx5MwQoU7DBiOo-ixZUQceE9sS8vDF0Rb6y3NaKB3tnKsPsa-IOVyJ-eJXcwF1Z5ud-yUzQyn4FX3YWbSW296bJKU2Cpw-ytUWIpjFJNQa6ozDoQ6Zp_9Ur27Bq-mVMhfyU_bBTq6M6NjxvyfhtgVzHAdBN9qbDu7JjUWdJJ5rU0jWmsgpW-1czFDhsKJ29mZ0Z8JOd_3XsLLa6kTQOkpXzYO26fTnRz1YMzVCb6kPPmVnhG_zJe17VqJhe0jFIDUKTKtikK_UwObRO2nwkodlr43U1EnEahdH5oxJ1h2KUgugo5JeE8TS3lNCE-VDHdoAg1sh59udeGc45Zc8y6k4JqS078sS4ypux_l4rX4cA-ZOPewt8142yf3zu89yyUFf1-sFa71hAbV9clDVDUibZKHjr96Gy4w_b4TUd-1hkpmNZF-MxPf-QigjJux0QJ-gRkyKRMiRMJvJSV3yIsDT4vsSybbBeFU0MsMIVfhGxCnb7LR3GXanbdPr83nbevk_JyRlhKg9s12qffTABOyJaXJjOsvdo3dcJFaK9jL7S54Is7Lylr-Jbz5_HcTQe-WKOGyoE0Z4tOiuJM0G1W2_sp3bRGhntnzyYOyrWcEluIR31SrPmFyWdchRHxId7Kvj2KtB2V3ww64deXIxBw4ItCjLZLsZcRj-EhQsQNL-6yh6ZcwUgCAjcNkwuf9DjRRc2jNPTjwO9emRPuv5y9Upk=w741-h986-no?authuser=0" alt="image of mole compared to eraser" width="371" height="493">
+			</center> </p>
+</div>	
+<!--results page--> 
+	
+<div class="page" id="five">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 5</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What crazyyyyy thing happened on Jalena's b-day weekend? </center> </p>
+		<center>
+		<a href="#six"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">She won the lottery</a>
+		<a href="#six"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Her mom got her a dog</a>
+		<a href="#six"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">tree smash on her house</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/fAlWJhJx_jjmDQCfALPYd6JdUuDr27dBJRKHwCINFW-V3a7jLR0Ij9G6AR3R3XvbFrOCQaA-n7Wgnw1sVJH7RsQ_12Q6ID2q7vMBh9LYD7AI3X6NfUHsZ2-vrt13rAWgIG6QLu8CoSg72k51_hucAGbhkKXNk7vSYjcWGS2iD4mPalEaiSHd8zRpqMj0LXfhvkxVOxiLbfHyiQCnJ2ZiYuQRhhuq7wYMb4kW4Ml95pUjCOCMDBmQZE6aCZdnbPDq_IRwo6iosostEIH4MYcRGidFIyYBpEDiU2e6HzQ7aYmXxK7rb2lYlZbxliwNrAP_mkCS1t5KRrlK00iHNqHopECiVOLXWe-IuD0KwqRQfdCqKQTTxuj6sPIjA2s8T4NQoadfE8hzgVqaDRUUajGdANdeLJrWUkEso6J3Eecm9Kn6cdBbTNFuY7zSCeyl9ELW12vQxq7qAfGWDI0NYSCCGxN3dYGrdVFVuyZamv3NIzM212vtM_3ksR39ME_Jybit1YOurKQOrq0kyQgYiMmPXRNx8X4I5sJBeSHoLiJyQ-VmFgrNfZiD_j0xuxVeELBeH09SV-Rxwok8O_P2bHb-x6tNyT_qCAx9ygjAzqCP5NXz9cz32YJ-c363amHHSSsH5kJpcb1QLWbHR4wCDJNrPklbYCx5MC27e2J61PdlFm3JQVTWKqFYIIn5e-F4L4ISZpA4fA_qT7p_JsjHLEmTRg8=w1314-h986-no?authuser=0" alt="image of mole compared to eraser" width="657" height="493">
+			</center> </p>
+	</div>
+	
+<div class="page" id="six">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 6</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>Where did Charli's mom catch the 2 lovers on one of their sneaky escapades?</center></p>
+		<center>
+		<a href="#seven"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Target parking lot</a>
+		<a href="#seven"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Colorado</a>
+		<a href="#seven"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">The Shuffle</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/N0m6d1DnmhlT98vsYpIemqJrmRBb0mezbBAQSx5c4hRBIK68fejqtUml9jC7AWl5oKcAyumbgppq3fc5dpMa3GGdmWwK1EF2-J8nQRGYJFQwIfRhf_GhjnRnvz2yDTWl5qWOGat_kpmg0G27g6xr6g7BJKZdgNj3mzBK6u_qqnSXRINVKWC-NC-92FUJpEPHLm_kSio8obRd6aRck36XMxFDzNX33x7tKlj-4tiMTNoJ6kruXtKyJbQFapZoYR8p9humCIgvqU5OrkZCjCVg2QYoRZONwTwrmdBMYtq1FodHpnLLPXFYyJKih2R9mb1711ktbAeChxQ7-PV27Psr_BLPrcJHypeAJjx32upxqJbpNv6jK_89EjCkdREErJkNh1jPOw43Om6hDlMbbU-SrrXa_H1vbXU4Z625-I0zvXhI0eBf78imMUA1OwSX9myqUs60hfSW2ApFh05QehGV-cpjd4LSvtvBD2fCOSPYSxa3oTON3Qqb4yyu3BOf8_o-fp8RUtXyXe_LSy2UGn4Y5Ab4agQaSNgLddSzrBRyjdgO6YIvrFZsM7j4Fn4MM66ekHIYQwUvf_i2E72ZsMpsSUdemZC3JthSe4PfNr_UjyLV4f2JGTS6nLWiOVlki8jI_Kk-gt-pcJXfqnWLEN62q4uup8xnOe1syj4HOkVQQIqEf7cYPjimUn7SoeO-Y7Cv8Zfdbx7ujlGwS5508KxeJn-9=w531-h986-no?authuser=0" alt="image of mole compared to eraser" width="266" height="493">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="seven">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 7</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> Who was Charli's zaney roommate at orienation? </center></p>
+		<center>
+		<a href="#eight"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Bill Gates</a>
+		<a href="#eight"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Maddie</a>
+		<a href="#eight"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Bevo</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/tL6aOcE5X-IcEJxLUKm1cl0jXV9RzUocarFjo6lFEcW8pySpyiwo2IrTfkUOIZdQxt0rI32I4-lNb6CDOQey4Lb4WegUribNkFJc1lsMKklva3YadEgFxt5m0-DdFeGPDLEbQ4Q3HWucCiALNiRin6mLR-khUC0qz97ErU9BWh4WgQNF39Pn28mgVufT7O-BMHUN664RX1kB72GPvNnEA07EocvQLN1VFa5_wjbebQV7bLf1sKujbQUgL0S4xDP9ZcUI0qsu03mpI_W11fWFQtOMShQ5xv8m5Pwn4MJSvBbUKsyzVc919B02OfkTJgq8pPIrUKQl1F6YdLLulAfU-LUOqBdxIk5Jvd93OeAm4rNc_XGRr7X3YQL3_scCk6bg3S1FTyCxtALi3IGiTA9H4dVxTl2M4JuPUN9fWxKAg5K82p6SIMOhuqGQIuzTEWKCadDId6jonyomSVb39sC-dmLrxbGObUh5RVuF49MVnkbXcSdPmetPeAzQseh1fdNlQOFfTF7TVy_5XKbY87nFPmykXIHDn_cih96Qkrr53L1C08gQ2VhNoSfdol6i8ilv0Y3mMGI7l6ZSgYy-25GCPM5J-8oTIllzRRcANYTAgnXaF75_ijAIB4BUvSx8TFzyuq37PD5OmFDy2ZUy5Zo538Wsfm40-BvnniVHRmpxlJ4NbDCtrKo9GZmONuVTbiCsE9LTpXMtT8Kc3PuhhBNUsNk=s460-no?authuser=0" alt="image of mole compared to eraser" width="493" height="493">
+			</center> </p>
+	</div>
+		<!--new page-->
+	<div class="page" id="eight">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 8</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> Where was the first place Jalena and Charli went off campus?</center></p>
+		<p> <center>(not including Target)</center></p>
+		<center>
+		<a href="#nine"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">The Texas Capital</a>
+		<a href="#nine"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Lucky Lab</a>
+		<a href="#nine"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Violet Crown</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/08UDI_S9CuXwVgFLd2fjwGzdAf7csAl1enHzFPKETeGMEnwzyWH-OpAmhuerZCusF2jUvb6VJN2TGLq3If2zVUq2Hsq49Z_igfng99EQPChzRn-sOYS43gSuw_M5X1n8UycS7dyQUCj4PpARr_0iqNXbbeizJRtogyoPUmqxIzrZY68mxetVM15n1Ysi6yQiXovtb3qLREMUq5TMmcc8U2noo2GMIKFge6T3sCBlyScrnZAivxTwA7cJSRQJC7LXpAT5rYcTkaxl7kF9HbGjExA4MVTZaDv_JG1OGsZyC-OzoeeUh8fPzWMFPUF5TmRKuZuFdjaTHK1Tm09Tcep6EpagwbDkvAkcrikqLHpH_ZvLTvAMApHX_hh4qmZi7_yIz5YvEcSgt-IrZ5OTP4_Up_mMnU5aUYHzyFHF6b8QP2SU6Nf-xqx-6A2-NsS55gA-iA6YDrC1Gfpea1tjYqonQAoWTKZUozoSeb2FC6MGmGBouF4_FgB9Hp1IUqkRzqSnth9ZqlOrqB_Rb54PXNeNlUHW2FOn2FAEcQCI-cEqpFQdKzsfqZL0Zd5jvgdgosSYrycW9qPx0hXn4qmDI7QY762oTgEdYVTYA1FYVyJ7BbUPScYoped13YVOb3jSSRnMJ__aBnKRzhhGifYaw-zAM3kfjBq77K8OON5Q-fQiegpDlVaDX8jwETb2maHxk7cKtnMq9-xXtwl2Cn-lB-gx6Wnl=w740-h986-no?authuser=0" alt="image of mole compared to eraser" width="370" height="493">
+			</center> </p>
+	</div>
+	
+	<!--new page-->
+	<div class="page" id="nine">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 9</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What sports club did Jalena and Charli try to join at the beginning of their first semester?</center></p>
+		<center>
+		<a href="#ten"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Chess club</a>
+		<a href="#ten"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Bike club</a>
+		<a href="#ten"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Rowing club</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/SokyX_vzZQj-UTyhqlkY4Xfpxnwd4MafEddP_FsyVt1cL-AavkH2SUV7tW4Agi8Y8mTuShuzn6lnT4zyHb_B_rgjQ8h5ikWrPxcIpuOFb_ZjKaKU-NyNYxgCzR1gP0JlmN9MQ0Zw_9vDfrCJ83iwq2gZz3y5nCo0DAdOVFbwY2473pq3QoKcZHdo8X5GMb7CJEAOLant_1xmW5Hk14wCzx805Z-8H4ii9fRpRMED8yc0OZMEkZuV0eUNiQlGXVW98y9hjC1NtK2M_2BORnBKdxbNO4hx4N7cJ2yRTL4fbKCbn3UVTCV6iDqVJ3WPv45zRyPkHXVlSk4b5A2VXapQtEGdr_BBXr8kJvLVQW2YI7_cySNrxyxEO6tJGfDuQvwUjtNPWrubvqP8UjMnUkcIcufYsatFpfPahpZDpnoK38EwIKamAFwaz2mTDkekemyUTETHADyJriVKalYs6mSbZLI2O6UuRTen8X9rV6i983Wpwqo3wnGDe7zib1sf-Ew1kWrvJMiGRDEsjmeYGrkjMXKr32S2RhwWUy8dDTLbGRNrU03sEdlfSS3-wxobskpQMLBZRjm1yLv9ZEDJy34pW8ICKQDraJ_Q1lzw03Crb-VZ7cSAgAiN-mNyYUR4SnSfK52WDIYEe2VPOkEyU-p6OscgCkQ_nRo4R3j9_qMv-Z0BCV103JiO4ezdqc4QKHDdnSFJoTsb6CyFFqAgRHrJyh9j=w675-h900-no?authuser=0" width="338" height="450">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="ten">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 10</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What happened when Jalena and Charli tried having school spirit by going to the first football game of the year?</center></p>
+		<center>
+		<a href="#eleven"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">We lost the game</a>
+		<a href="#eleven"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">They had a great time and it was awesome</a>
+		<a href="#eleven"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Sun burnnn</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/d3EpbgtPPckbVPQ6XvemqVDCmDN32y6fW8fhhS3f5h9MCbF0YvzRhT1mCPTzWWs6_oSfwShwWLXaH2vZZX1u7oVcKLgUMh213l0NQuH8jnlPIh6NyxahdtPuxg80aA1HGr5LtHT1yz2bL21TPIUP7Yy3noKxxI6UN6ba3L8zpStSxqrL66jT7aIPbOysFeWpxEKf0AMqZQWBXbeR3HLIt55l-Le9rx00NTdQ4iAtQXPGyqMIRtwhzqNasTurg1AssgjjWiR_yWqIGi0osPRvMp_kXNRAkdSD2dixQAUscefx5-iM8pe1OyZwtSoRiw26HmL5fdd7_f1rQLCdZ91jSPV05wk1qUGqfTK1rEvd75-O2YsxzVrCXjTuPKI_VtDYzq-nE6yZBMDVW-JV1Vbm67pDFVmvjGcSHdwWcoeXsDSk4zoPLtkXyG7193-x0bX0jTl9M1DB77C0zlBp32POY4ztqcqc1ogJNZKnaDJvi9kMYqRrzq2dIa2Wbd3es8pcAP_j8fu-oogLSM_coYZTgToaOmozNZ73BNvoXuziF40lIulwI2mIYASzQHEIGgZAUOYxypyVB0fQi9l7HU10jF2gcEv_7u5PQPe8_SY6KBWK75tj7AP3r3yWTo5bG1yKRlUzSHoICyBJYPnVY4sjZbLXNAXaFZA5gvqykUq7rciapLtrq_tTbn9U0Xz0L2M_pguWtLVyz4TnPjzmwmbQ8drW=w740-h986-no?authuser=0" alt="image of mole compared to eraser" width="370" height="493">
+			<img src="https://lh3.googleusercontent.com/SszmBMsOy-4bNQPdmA56Z8spsJWMBpCzvb7IT3rA6FHaug-KZ0aQ0NXk0Z5mE75eatqaMTMXoFB1DUPmMXNZTCY42GVe9gPMvFj3qy91HIWN-AJqxP8hUNCpCehqATRiBshMmWbT1JjIrXT422xxX96ldlqXqll57RtykGppZmFhFIC9rSG_10vSSI8Y8-m0jc21xIZWfn5gqtmcfZZtOtJ9GHL3tDyMImC7pLxGU1Eaz4yTlCuyGQyWzU_iAZid3nfDatQib8ClEdqqrBdiUAZNcnT1buZKh3exft-Yg27JPh5uAPC3YZrsyPFblS8ldtmZl2-MpY7Yeu4vS-mvaXP3j-y28xAaduhZBJGZNsXh5vI_JrW2GphKNsLTMCcpfH9yMEww8U7U0dJkChiwZDE6-0x6j-9uYLpqdEdCYGQqTYwl-RXnLUmfCPTKfUsUTjOAraBkFaJfOsJcI7JIhZ1S14J4wlxciImpoKhVNIMwHSN9QlH37kDC2PBwo9oKNYjd3ZKwe7GRigtnF8eMs0aQqDNHWncijKkx8EpN3kD1iryxvWByAEyAgOLyw8pS19iayIjJk6O-uJM22yxNYXgmRnMvW5hZzmbLHQrGOH2mrW_dMcJsTaBqSmvnM45FFHIGfbLD7QeWDXU4MPNcV0IKTrnl0sqox6_OSglmM4eIsQBwqnM_UQmDmxhCHRXAM3F1y92751Jc_zf5g-LGLG6Z=w1199-h900-no?authuser=0" alt="image of mole compared to eraser" width="600" height="450">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="eleven">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 11</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What really cool souvenier did Jalena and Charli get on their first volunteer job in Austin?</center></p>
+		<center>
+		<a href="#twelve"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">free shirt</a>
+		<a href="#twelve"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">CNS diploma holder</a>
+		<a href="#twelve"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">a brand new sticker</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/KlEkmtuRFGudqeZSO0n9ERNwv-su8e28KXp4dIxKCexlO9OHgq-Bi73yNFcxYy2N3wbDxehXAC8rx9Bifcu_z6LBAumCJXWejK5hryvJS6Owil5eQcKqz9_wqnVn9yUCRETAek2JzU02ZO3sBIp2PprBvsTmv9yOlWaeMDIj17xPaX8yMpz8Li4AOCQAiQilxQvuQo-7gnqetjY-vv39Zv7IOsB5r1rKoPABzQIO3unLcUNovcYkYdzKN0ZVtHyUxxcpAkunimG-dbONdccThtomeKldv8giRUNLhr7hadGPxluazyCzsd2VJUK3XZGcDJZkMhjzBe7KsCFb6t4cPM499quhzqhuHIul193OIk78TtxkGNFtFAkbTDUG8DPkFN5L70_fJW6MsNXeFnjNH6ZnCK3RAkC0A1Ws77v9cv_l9YtIHFDhu4rYWSMX-NOrEfcGox_rdiwwa0Y9GfNWaMSnIjV95hUoYkA0FIFR9tUCij_8nha0xWwjqtU078D3fWRKctdjmSOaze5HuzNWem_kC_xxJa11EEEaQR67SnoXl_pclAgWEtAcOA146HDHrQBs4cq-Bd9kdG5Jaxv8CDMsmoySSXyliYNSx_qJiiSss0RS3jJYVks4-pmqu2omzuJltBGwUkgyruu237u-Z_h-0-0WucBTl0Qkp0o80si-bXDEad9d1oExjJgOMcmwR-HAMZOmuHIVtbIsmSh_z_p3=w740-h986-no?authuser=0" alt="image of mole compared to eraser" width="370" height="493">
+			</center> </p>
+	</div>
+		<!--new page-->
+	<div class="page" id="twelve">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 12</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What move did Jalena and Charli watch on the lawn in front of the tower?</center></p>
+		<center>
+		<a href="#thirteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Shrek</a>
+		<a href="#thirteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Shawshank Redemption</a>
+		<a href="#thirteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Little Women</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/myigamIetGDP4rTzip9gXL2DewIEsSJny8AHH2GVx2-olkSgygF2Hpx4bIU5JAUBgfgYms-fLLdbmF9SwifCrAEkaKBy6EFPWefGMvWvBGQiB9v3tJYZirOLVOnRYQc8d03Q1EIlFVljmCKuNtII6b5c2s2xicQ5w0N8YzGUqm0_PxPWFioHECa0t4ZyMZB3qUxBC7gA9zE8VF2XMtmGObeklFX4B5XJZCs-QSBE6zsXmbFVF13IZAvrVpWEUEDC_AKOOZCTKLQ2gV5HUoOkSI3zjM5x5jx9YMNwqjQdvnYcmWJ5MNCoVXpfuXdhC48zyWpD7aPW98SrZ3eiPQhyKKQ2iBT7TGUzwUmwef6m4mCCgTQP9IM0jBmilW6fZrcuidYXvPy1ocMQ82dd8VbC-TkfKEBmGqCepFnchd4-KNPCVWBrev0UZoWJOZRfnoysa7Yey8mvgAVheDLs1ZvwwnDA-kmfIm2hrlEHbOyMmj64Xlt_UM-JgFrjWaDf2a6B6AYRio65OJp9tGXP8QecfAj-7JwFgVqJzYxLa4iYgheYeQsap5KXwYZFMpewqzUDVe96yFetNKF1fL2-KrIGSzi60EbJK-r6dN-VtW4kDka5YATSvYEBnY0WMGW6SHcw7GLyqZN_AXKUxDOB2PJ06t8Io7u3oE82B6MKBA-8_SFZXDi96xG4zuT1jbmXAC24N0sWmN6HFHCeYa96DalSzFCf=w740-h986-no?authuser=0" alt="image of mole compared to eraser" width="370" height="493">
+			</center> </p>
+	</div>
+		<!--new page-->
+	<div class="page" id="thirteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 13</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What super amazing thing did Charli begin on October 7, 2021?</center></p>
+		<p> <center> (hint: Jalena just started doing this, too) </center> <p>
+		<center>
+		<a href="#fourteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">stopped drinking caffeine</a>
+		<a href="#fourteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">professional frisbee golfing</a>
+		<a href="#fourteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Crisis Text Line counseling</a>
+			
+		<center>
+		<img src="https://lh3.googleusercontent.com/7gHViCNLrp6SKxHiaC-D4qUnaaW5Zi7P0gq2V5V1darTNz2ZOOcDfHb72vDIN-eYKgkRXq7w4LEQQWWkQCurKDiOFWQvKCZjylLwK2xZIg_YHMhrSmex5qMK_ur-GzKempRsPuTT4NgPa-0IcnGn2c4xtMdIxangEm1t--9sCMFLm50Uq13V-eeofW_WGJdCSo6qAeUcFbCX6ahMFMFsPog1fizXiHCMOUp50LC2tFmduMsdc0J36yHFdFFj34eyDSn7CiSWVvfs5olGkGXmpQYswKB5AsP0hJjLTw-x2oqxz2mI_cthgySmSPd4OBUV96cTAej2ZvkNHlUFUBecDwdf65TIQQg-XJSJfRN7oOjINH87AeBMR88ifSwy9sIHpRKDSQX_Zifrr1ncFo7-zrMPnjBhNStHHMkMAnODQ5pTUA3Tgg3JxPtpLTgdAaSe8ukTPL0Sikye8pay18BNOtVXu4rGkZXoPdUcqMLmMZnN8YnY491EZgtkIpWHQdxjKgZf_7Ed5f0saX6Su9wMpelI-qO7MhKTctD0S3W1HmI7BffZhN7ZaN8H-vHzeo3tCKPNzwCY9cXpSfxgLMoRZwPcqea1mt7O_zmmFOelJGCEu03rzIPOdCj7N_AzfORfZxARKux-auJ-LO6XyivviFCqFGPFQ7YUZJXTVINmt4WtrLLeuL3L3yFaFuOM6zcg8xMF9eFuOwx9VDuD9pARpJPm=w675-h900-no?authuser=0" alt="image of mole compared to eraser" width="338" height="450">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="fourteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 14</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What is the coolest thing on campus ever?</center></p>
+		<center>
+		<a href="#fifteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">The inside of a lecture hall</a>
+		<a href="#fifteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">The view from the top of the astronomy building</a>
+		<a href="#fifteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">J2 dining</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/zlWsxj2qsXmxkaskbTuRfYOe_OGIwltlIy4miJwp-wHtTvTzzJX_xNGy3LtC8pYCEAHMp0kFfAQ7kKpZghjxi7ljHpQlMpKBvuvg0XnqJWCb2Ziqwo8kBpmoTjlivZVxOsocbQ9Zhmzs8hONcyx4v0pzAE48IzkfeK8u66C9KF5IpyGKoOuLfjZLKNaz1jOy0TOludZW5nuaR_bqhwCQflzS_C5xavEYK10w7nffA3QK-G53SuqbHqtcoMIUgtepfke6Ex56t9YeHx11hEpZ4J8XJ_8OTiClC5h0OtN9WLtdkPy5rmWPMvuC6rWB55f8-ZiM88w3Mgp_jL9OLO1DR8n_W5Ghqegc_Ggwt4ZAuSYOivaRyO4m6zToB3PBLYECakzHRMvx-_6YVho18zQElTCleENJOv6B3VIcz3Uupfu-aIWf_4UKPY56uAOs9fkP42splMbuIZJnzzsIOtmpPH882BKdhN33irNRzawACLU5CksctB-MkKdbTEawRRiKoSoYgbLx0fPL_-Jr8EukHuxig4NvkGqAScZ2qvPkE0xCJf1hNn2JP6tND2M19j1yILquwrqcUjLc2G37_78NNYDycvN2-UvUUHjrkqcCIuv3V77v5tdxvBB1hfHzg-DKFNihteTozrxOGxex1DZ5rNcaSXmiWLNZ136vfi_AtlVg6EAuX698TGyJ-HSxdGNXYw-6a1fqzwXVoNcDYudQFFx8=w675-h900-no?authuser=0" alt="image of mole compared to eraser" width="338" height="450">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="fifteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 14</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center> What was definitely the weirdest day of the first semester?</center></p>
+		<center>
+		<a href="#sixteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Halloween</a>
+		<a href="#sixteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">First Day of Classes</a>
+		<a href="#sixteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Last day of Classes</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/cJhutNBqFUVYSFrwsxvhDnEGRkl_mluD70nrVszJDoJCC8RrXG_s2X8czRh3uNF7iW7efJPquGuyedBw_vLCpdnMde2LJmoFxIaGuVrgWPpRq3S1HnQzN7_TiOewqZaS7Llt24TPfNNJs_s0fJpA-eHRUQ-KnKfs1wyCrmemXsViUUkSAUslBtETqw7cM3P2e-y3I4_-0q6rNFVTJurawS_MEz2SV4gn6Wa4kE7mk2ChEVxZWDLxxoA1UK22ELrF0-t0rhSwX6jjgPfX1MVPWovhb_9L7wi0o7h9htPqfz74s9o6BjqNkJyIo7tNGTZhvgLrdNdUrAWv1_KyixbG09kIvpvy7-RPm_BpKHYpFH_CNhvhRyvUVeJts8zwGoK00InXAIVulrN1X2XBAtHHCCneXCPqnNx37OYjEOCmHbKc7OsNUCuXN9fuNSXXoVnpAEPA4xk8puBAGcSvtUCL3716I0ezEc8IkJTXneVjEK0AI8TMy-QUfWSw0sr27oZQzRtUg7dUFYvBA1eDxA1xQG2fbeKIn6gtYEnXI3vrw6wvcj7N943SoPLlHJ-Es1LyqhutYXCGUzYAtI0CeSBnZBlzXKSZWoRaDPxZ7kp4IXFM6v6F8sz-INKCGwtQ-CVREU4PVPhts_1owzK-gUjhktMcKiQX87vZ3bdFtv_gLVwXTIEItWVwoX4pJzLANYEczcIrkGz6TCmv2yazj9Urp9Ld=w1314-h986-no?authuser=0" alt="image of mole compared to eraser" width="657" height="493">
+			<img src="https://lh3.googleusercontent.com/WLO08U6Dy3uSrYyRDiWPXJ1GNfoTjoLCnamkyJ3iyR0fmPO_NepMP_FifUPVZj9O9xWYK34mRry71nwwJzC-q6jiEH5krzsoHJH0EnhWYkBErvO0zbVwU3pPrRubkTZ_ipL8BBMMW_kdhwJGc5LPppn4Zu4bh8sNUZh1IYk2NROxXaAeMj5bmxN0qFXiuN1EmZf_8X-zvLFJxdtxozDahIyPAoQPS_Du5jOmOZ74LsAsRKd_QW9Dp52odvBGy2JGKg9WtMpnqkra7GMbj6eRNOYfTutzyUQ8p2p9pl-XHObN8G5uu6FiYWnhVU36jYp5ngXpIcG6r__fT7hfnD2_m-pun77BO0c7-9w71nFv2tJ8eBesxWo2Ku_t-it_demjlsZffEdCAaCLgvstdoXFrlouQY-EopGoEKeKCR8oCwtI3qSibFIY1AVcc2YsBKJE_Y4dzR2pMLUF1WzSrcifp3uFo7F-FMa2F9FE0PjA_TyIO7QuuXSo1zZvWX1GEzhYPj4ejv3Oong2gYqmps8nN7HwBc7VdkJsyoXJqRRo0W0dBZnGynOfKvyhJMO_Q4zbNXsoGKyZEZhbpNfDPWkUuQVH96KDZcQtC9pgmFRLw1ig_CComRANP0iY4dIfaVqOCBCu7rcR5JhcoZm53glPsN3ymYtcHF8XiPWaeOHUR0V3JkEZGRjZAIDvue7jlApe3tEhEvz0nhDu_sGDv8Xcb3Zm=w555-h986-no?authuser=0" alt="image of mole compared to eraser" width="278" height="493">
+			<img src="https://lh3.googleusercontent.com/GAfVADJQTh0IyRSUgnehTN5VrydGZt4duUD-6IvaOR3GVOD5k0sh5tLNOLKfHeHOs36f2rfSvAxMsUbbinbdkVeIDzymLwMCbCJLmHbzemVzUCNTUoEZc9diQzR7Rg3eqZx8u_YW-98ctXbv_zeib9YvtdNz4obhp1vkDmsMmmvY3a1z4A6f-RXQkf-QGfRTDW0xunCaqIgDDPjcS8c7LsIzMsyRORQTDyX8ybn_K4PK6TUUZ9miKnapTfEwdGo7WZoDwne5v5QefV0Nr7OOaWsWE9ozyQ6pdVbzvMo8XjZdagZdfSlt1QxsPZq_mAW6rD5PGZuLS-sV2dsfNyLnLKl1Y5QaHZe_emtjEoVmiaqHzbUmlyPAyO7lkKeSOXUFD_B7a5Jax5GakQovdlKo_hMAl1KArJYzJ7TwlAyBf7Ejswqligj-qHszny4mRI1-Hqu7430yBBvJsD_X1apNUVop0JJZp-gMGdxNmh2MND3vKS4l4UBr5jBTsfAAtTPeqEbSInawNPHbNhpnr8HOU9F0pRVGK83G-uJ13RlwhTo6FaJ-5O1HNrQaTkU5ezxS34W3CcX2GeuHnbAfg3qomMePirH2GbJvxjQ6iM3rYNhxI7FZTpTM3ovg9PLdA2l5Q8poIYDDbIwYntf8UncGao7MiJdtKeEXLggvqR4tPJ0rIoCyR-RxxXcY1KSZM0t_TcDT2-_d3-8MHSQIYY8IDEiN=w740-h986-no?authuser=0" alt="image of mole compared to eraser" width="370" height="493">
+			</center> </p>
+	</div>
+<!--new page-->
+	<div class="page" id="sixteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 16</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>What happened to Charli on her way to the way less cool telescope?</center></p>
+		<center>
+		<a href="#seventeen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">She won the lottery</a>
+		<a href="#seventeen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">She saw an albino squirrel and got great luck</a>
+		<a href="#seventeen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">She jerked too hard and fell</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/nXDZEm3gZxDnyDoOcEuFNjB-myijIqqVv0bMIM4XD7HD6HCrYJuP7oAQTu-9lerb-CCdZsnfgvI3Dd5l1iB3YgchfiydGUy1ddtiA8sX26b6EiQYJ-nDrY6B3AeZgLR1YEGqxUXjVN7ImKEf22CH0TlC3yTj-KTzDoOa20Pb_TX-5MAsgONjB7cspASet7CgQiqIqw6WMZaNRnxL_tUkHiwYvKvMLhdMDuwLFbL_Hb0xEQWK5gr1UPs8ytQXrfoqQl5c9pXFpLELjVRFWVNksWMzMfMCRa9XCHRAISfbjkWmDMB82OrPxzFfY3SPjcRbRV3_dj84zIztBFSyEWBlfv6L7MMWtKGb5nsLEitlNqEAnH-vHLHVrkYmhqGg6BhhzhnjKSHkfFeZrE4m56Js_04XKaXFPIZVECwqyO-gbuTmWSTF37kq62cAfaCZFm1Hzk73tPtbqUbTuO1TNDxj9tCgE9J6oDezFTpsJK9OyBtnzLmlymXPG-g2jONOHiDj0eKFiDAovyaM58mpi6LremGN_Ht7GuXm8HvBNbcA9JR4QfBlfsAM-7rq8se6Z4FwOHOy5Q5kUXoKpyaeYqmsULfW1glJm6z-x9UaFzZAgm3BPh0OQLSp1Y4VWmYVAr7jqiMIfeHV-FK1hSpruHZGFYLgutz4imXlGNNvLd7yQadN_qnaeogbQAZddxUE5LONzX4cnX_e0f3DqS6OQgG0W1ih=w675-h900-no?authuser=0" alt="image of mole compared to eraser" width="338" height="450">
+			</center> </p>
+	</div>
+
+		<!--new page-->
+	<div class="page" id="seventeen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 17</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>What did Charli and Jalena do on their last night of Semeser 1?</center></p>
+		<center>
+		<a href="#eighteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge"> Went ice skating</a>
+		<a href="#eighteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Threw da frisbee</a>
+		<a href="#eighteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Made a gingerbread house</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/xrTa2cgXZYqv7HB4OG8Ba6fbZ8YDxytfvbbaIGdn0yHK5aX6xQs55hQtGgdGas5nKkzXR1fyUpk2-Vkk3OlBkyWRjQuOIxtYpFqgyJHPHE9I42kkM67AQsy8ZdDZgqaV1WE02r8RcBE8doXB-snOf0NrgNvlEYulbFdP9jPfziDlyBnNt7JPKvX_TcB9IFKdcNoh9cSl_eQ9z1CDxpA9wdDgJMAV2QM84aEw0gnqNpTEogaQaEK-1R553xGpopM4n8BZZAPiTgrgo51XPfmNYTAwed4QZNPYZx0N3MJl65Ymix_B--nWtect5Rbeem9BCHNeaw4OhsFYnhaphf4T1aj4j2YT1_58gnCXug2DppOLgB3N09tO-8VaQOdi1PpyGOOZpG2bh1lGuQJCYDKTujgXZUaZNTAT8ac1LP5o7IsuJkWLfopy6AGM0brWaT1Rr-DnBDPbJrmHO1enn_jEP8M4xyLUEimSchuVnNTVidlohbJuUnG_-aLoEiJw4y0SFtD4YfmQyyNZ1lEZMf9vUk1CQnKqTh1LU9Q-EVlo29wfTBD3TSt8wvxIVR_f_gNJ3Kg6thK7JUN3lMk8sfubOVueDJbRYS2uPMywg1jiQcrGEfeTy80-DRJADNEgYjgZEdoHkfant0vgGwo8QbK461wQqK2T0ZsF_nxG92gbTd2PzCmuGkc8Pndh8KK2PDtGr9vBoD1HrYoxXwSF_588IyL7=w720-h956-no?authuser=0" alt="image of mole compared to eraser" width="360" height="478">
+			</center> </p>
+	</div>
+		
+<!--new page-->
+	<div class="page" id="eighteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 18</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>How many sneaky sleepovers did Jalena and Charli have over Christmas break?</center></p>
+		<center>
+		<a href="#nineteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge"> 100</a>
+		<a href="#nineteen"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">2</a>
+		<a href="#nineteen"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">none</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/zl0xnc1zeGvxloS6zd65yzqrISnRLPz3Grky9ddkT6auk7vcQK41Bdl1Qf5sa9gkTay_0BXZg6t7SQz_RzPmXsg3ZNj9hT-plMzjNQ_lLx4d6p3sLn3kHsjdhK7xLNX04f-r1QVM-ESGDl6440cjsPEqsL5f1SC41DYHVzFxw1Vz-QWgf-d48-LQ_wf-kdxbXnt0srnJMTwEmjudmNkohz3SEXak4fLIjV1u7Y8Qt0yEkr6VwdkushTYtYB0Sbn8R--hFXJVY4Q3Yn5AlQ1fGGPQM6KHy9fSIz1dl3OYX0puIywu5bPzLKsgwMOXsKL5Kophnn6MvmSyFQx3bKtRc1Y0QGwBwgsqiTNb4q4bT1BVBLftoz7szUObDCNcd0sMSzQ7JI383Qce2_n0GJ71-Y63mbkwN5rhOTTNlaHXbiiDZfH3vM-rKf7zTn0YaARn11tEbYvtvodzOSddvLUh9U6rEq5RNv_pE_DlC3ntjHEH-3DuJ4WLuYU9P6HeCjqtC2c2NcvxpH5vLvWQLGCPNcGncqpXJiQ0nby5OlkBhM6qwaONwIC23WLtWYATRrcBpekmA0vqMZyV6BIPOG8B6XYm_GxzGrZfx6xU-t1b0n_YOpeJ2k3SDrQ33tvgWmp47FofiSg0Ph6b9N25xcvAI8eGLG_gPhPPulUaMhMgBp3_G4mpcO3CzHE2xpCE4gdGfsIFOrB5AA7EcufEbTl_rUfm=w1200-h900-no?authuser=0" alt="image of mole compared to eraser" width="600" height="450">
+			</center> </p>
+	</div>
+
+<!--new page-->
+	<div class="page" id="nineteen">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Question 19</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>Why did Charli and Jalena walk back through the frozen tundra just after making it to the Union?</center></p>
+		<center>
+		<a href="#twenty"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge"> Charli left her backpack</a>
+		<a href="#twenty"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">It was naptime</a>
+		<a href="#twenty"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">Jalena wanted to go ice skating</a>
+			
+		</center>
+		
+		<p> <center>
+			<img src="https://lh3.googleusercontent.com/mcv1JR5VDwnKJzYsYlNT_HYdi3svDdc-tdlZ93q_nkruQ5uwPp9ombw5b-fYE1sjsVbmWoVTtQzF--GANbF7DjM_qgIUtDCK-lbPbT36kNxdhto_LfAnxEZFzf1pKvBEOmVgGaSllDjFSm8n5q05v2ztSxvM-Ini2mbHAxJ8ZaoZvfKimNi9LbbyB20zPZOHYlorptHmtZ88N6bpE2ljml7Bu4jEd8SkJQL4xqmBKZG18TGuu4-fR9HIG7NrfjBkKkv5Y5r_Xx2_kSufomWFvUXxJLmrGi69VVNUcjMN_m3vaEoRN481CNEqMwvfM5GXyaLd0UqqBd8BMmQ_xg3RMILkVBgi0fgoLVq6bNYNoG7TTG8Y-qjIuylriHeTWyPK-TIEZSm44fGIFTIjXlsGKJR8tlPbixNEJYWdf17NlI9rCxwJTiwOLtYXOPr8U2czofgYoou8XwGCxjDFhADTZwHP_zt44VF0otCn_d570NnLWiR15iWQQIE5RUJIa9571MBijXawYBUumiKAUp9SbZ89kC7wLHnSBfRTI57_LNHCBrLQFB8Qhk8mxdKdue-TWXwWKo0tlzl8fmsaKVmeZ19yzsPJ3dLwPMLTylzHgRapplohZnIJGYSTy4OWIMHpOlJFwZQfmW7sAYj516ChKlZY4imQtFRZCHoJrheqfoShfVSuRbtloZANMJkCL8Z6xa_HVdtil2Bl7NaVK8mOB_QE=w1314-h986-no?authuser=0" alt="image of mole compared to eraser" width="657" height="493">
+			</center> </p>
+		
+<!--new page-->
+	<div class="page" id="twenty">
+	<div class="w3-container w3-flat-amethyst">
+		<h1>Last Question</h1>
+		
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p style="font-size:2vw;"> <center>How much does Jalena love Charli?</center></p>
+		<center>
+		<a href="#twentyone"  onclick="loveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">SO MUCH LIKE 100000000% </a>
+		<a href="#twentyone"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">not at all ew Charli's a stinky poo</a>
+		<a href="#twentyone"  onclick="noloveAdd();" class="w3-btn w3-khaki w3-round-xxlarge">eh like 4/10</a>
+			
+		</center>
+		
+		<p> <center>
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/cE5wUSS3iN8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</center> </p>
+	</div>
+<div class="page" id="twentyone">
+	 <div class="w3-container w3-flat-amethyst">
+		 <h1>How did you do?</h1> 	 
+	 </div>
+	<div id="content" class="w3-container">
+		<center>
+		<a href="#twentytwo"  onclick="results();" class="w3-btn w3-khaki w3-round-xxlarge"> Show Results </a> 
+		</center>
+		<!--when button is clicked, results fuction runs and displays results on page six-->
+		
+<div class="page" id="twentytwo">
+	 <div class="w3-container w3-flat-amethyst">
+		 <h1>Results</h1> 	 
+
+	</div>
+	
+	<div> <center>
+	<p style="font-size:2vw;" id="results"> </p>
+		</center>
+		<!--used as place holder for results function-->
+		
+		<center> <img src="https://lh3.googleusercontent.com/v8DQB9qsfP0glmyhO_Ga-xmoA2jQeLrGGR_3fVAnm9_4Ww0-k--cf5OrI5sZYbWZPQogtAwvIhQkV9mSmN4FAGzPJf-Mq73Fk-7EK9AVBu4DHB2Izjcc3AseSWKoLeUDREGZSFMLEPKHxf0y44RP2mQXNNgB_sZVcYWfcc_5AbdU8fiNNr7NUyLSE7fNyiooslXBrWM3QwsF7i5KWRjcFpBYPSUM7t1yQF-nJTyQTVOjzH8--q1fmjNIGMO4sFQ6wEPN57KkWTEdtacvdcZq2uJMbKAjlxJDWY2tys-gZLG1bcil1BRnN5aQ_-LcaYnBqOVrH2nPiA_6kb-9j_mjMF7WJj9bucj9S1rKWtmPNa_jLnMsJWfinteumuyDgpnYTsQ-05qThRVTAw5kO9g4_yEtaFy1cILCTg4QIvse9v-I--WWY_QRvDjjL2v-WSk085h4D1rsJvgjiahfPyHQVM33zH8lwke34XjHKQSzUTyZZAkMDxVp1Ez8eYTihRThEo5bxpeNTe7LKmW0a2473i9_etFeqk0r6jSjUaqq1DzqaGeBSOXPteVR-vYq83WEJN-ZSR44vr6de-fU2o7kEfXmBt7Qesw4WCtQQUfCaaLSrXUgqk-3XdXyqKM8b5A8pqZNmN8eCozYPlIuyCECGs1pib0BwiUNaPbEiXaKakc89N_VPILw7w4l3P0MRFGEZoA8fBfq1KGTK_SKjHlMB22-=s220-no?authuser=0" alt="picture of all four malignant properties" width="493" height="493">
+		</center>
+		<p>   </p>
+		<center> <p> I hope you enjoyed this little journey through our relationship :) I love you more than words - or code - can express  </p> </center>
+	
+	
+	</div>
+	
+
+	
+<footer class="w3-bottom w3-container w3-flat-amethyst">
+ 	<a href="#twentythree"  onclick="();" class="w3-btn w3-khaki w3-round-xxlarge"> click for a surprise </a> 
+</footer>
+		
+<div class="page" id="twentythree">		
+<div>
+<canvas id="canvas"></canvas>
+  </div>
+		</div> 
+   </body>
+</html>
